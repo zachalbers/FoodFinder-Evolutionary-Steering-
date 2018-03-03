@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B77C52DD1F89797E0048D041 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77C52DC1F89797E0048D041 /* Food.swift */; };
 		B7FE0C9E1F893DF6005C0E8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FE0C9D1F893DF6005C0E8A /* AppDelegate.swift */; };
 		B7FE0CA01F893DF6005C0E8A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B7FE0C9F1F893DF6005C0E8A /* GameScene.sks */; };
 		B7FE0CA21F893DF6005C0E8A /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B7FE0CA11F893DF6005C0E8A /* Actions.sks */; };
@@ -17,6 +18,7 @@
 		B7FE0CAE1F893DF6005C0E8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7FE0CAC1F893DF6005C0E8A /* LaunchScreen.storyboard */; };
 		B7FE0CB91F893DF6005C0E8A /* gameProj2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FE0CB81F893DF6005C0E8A /* gameProj2Tests.swift */; };
 		B7FE0CC41F893DF6005C0E8A /* gameProj2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FE0CC31F893DF6005C0E8A /* gameProj2UITests.swift */; };
+		B7FE0CD41F894ECE005C0E8A /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FE0CD31F894ECE005C0E8A /* Vehicle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B77C52DC1F89797E0048D041 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 		B7FE0C9A1F893DF6005C0E8A /* gameProj2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameProj2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7FE0C9D1F893DF6005C0E8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7FE0C9F1F893DF6005C0E8A /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -53,6 +56,7 @@
 		B7FE0CBF1F893DF6005C0E8A /* gameProj2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gameProj2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7FE0CC31F893DF6005C0E8A /* gameProj2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameProj2UITests.swift; sourceTree = "<group>"; };
 		B7FE0CC51F893DF6005C0E8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B7FE0CD31F894ECE005C0E8A /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Vehicle.swift; path = ../Vehicle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				B7FE0C9D1F893DF6005C0E8A /* AppDelegate.swift */,
 				B7FE0C9F1F893DF6005C0E8A /* GameScene.sks */,
 				B7FE0CA11F893DF6005C0E8A /* Actions.sks */,
+				B77C52DC1F89797E0048D041 /* Food.swift */,
+				B7FE0CD31F894ECE005C0E8A /* Vehicle.swift */,
 				B7FE0CA31F893DF6005C0E8A /* GameScene.swift */,
 				B7FE0CA51F893DF6005C0E8A /* GameViewController.swift */,
 				B7FE0CA71F893DF6005C0E8A /* Main.storyboard */,
@@ -270,7 +276,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7FE0CD41F894ECE005C0E8A /* Vehicle.swift in Sources */,
 				B7FE0CA41F893DF6005C0E8A /* GameScene.swift in Sources */,
+				B77C52DD1F89797E0048D041 /* Food.swift in Sources */,
 				B7FE0CA61F893DF6005C0E8A /* GameViewController.swift in Sources */,
 				B7FE0C9E1F893DF6005C0E8A /* AppDelegate.swift in Sources */,
 			);

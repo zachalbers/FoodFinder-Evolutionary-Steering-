@@ -8,82 +8,134 @@
 
 import SpriteKit
 import GameplayKit
+import Foundation
 
 class GameScene: SKScene {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+
+    
+    let node = Vehicle(color: .green)
+    
+    let node2 = Vehicle(color: .blue)
+    
+    let circle = SKShapeNode(circleOfRadius: 40)
+    
+    let line = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 4, height: 30))
+    
+    var food = [Food]()
+    var poison = [Food]()
+    
+
     
     override func didMove(to view: SKView) {
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
+
+        for _ in 1...30 {
+            food.append(Food(color: .blue))
+            poison.append(Food(color: .red))
+        }
+        for i in food {
+            let x = CGFloat( (arc4random_uniform(600)) ) - 300
+            let y = CGFloat( (arc4random_uniform(1200)) ) - 600
+            i.position = CGPoint(x: x, y: y)
+            self.addChild(i)
+        }
+        for i in poison {
+            let x = CGFloat( (arc4random_uniform(600)) ) - 300
+            let y = CGFloat( (arc4random_uniform(1200)) ) - 600
+            i.position = CGPoint(x: x, y: y)
+            self.addChild(i)
         }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        let border = SKPhysicsBody(edgeLoopFrom: self.frame)
+        self.physicsBody = border
+
+        node.position = CGPoint(x: frame.midX - 200, y: frame.midY)
+
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
-    }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+        node2.position = CGPoint(x: 200, y: 500)
+        node2.physicsBody?.isDynamic = false
         
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
+        line.strokeColor = .red
+        line.fillColor = .red
+        
+        
+        self.addChild(node)
+        self.addChild(node2)
+        
+        self.addChild(circle)
+        self.addChild(line)
+        
+
+        
+        
+        
     }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
+
+
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+//        node.seek(target: node2)
+        eat(vehicle: node, food_list: food, type: "food")
+//        eat(vehicle: node, food_list: poison, type: "poison")
+ //       print(node.physicsBody?.velocity as Any)
+        updateCircle(circle: circle, vehicle: node)
+        updateLine(line: line, vehicle: node)
+        
     }
+    
+    
+    
+    func eat(vehicle: Vehicle, food_list: [Food], type: String) {
+        var record: Double = 3000
+        var closest = -1
+        for i in 0..<(food_list.count) {
+            let current_distance = calculate_distance(vehicle: vehicle, item: food_list[i])
+            if current_distance < record {
+                record = current_distance
+                closest = i
+                
+            }
+        }
+        
+        vehicle.seek(target: food_list[closest])
+        if record < 20 {
+            if type == "food" {
+            food_list[closest].removeFromParent()
+            food.remove(at: closest)
+            } else {
+                food_list[closest].removeFromParent()
+                poison.remove(at: closest)
+            }
+            
+            
+        }
+    }
+    
+    func calculate_distance(vehicle: Vehicle, item: Food) -> Double {
+        let dx = item.position.x - vehicle.position.x
+        let dy = item.position.y - vehicle.position.y
+        let dx_d = Double(dx*dx)
+        let dy_d = Double(dy*dy)
+        return sqrt(dx_d + dy_d)
+        
+    }
+    
+    
+    func updateCircle(circle: SKShapeNode, vehicle: Vehicle) {
+        circle.position = vehicle.position
+    }
+    
+    func updateLine(line: SKShapeNode, vehicle: Vehicle) {
+        line.position = vehicle.position
+    }
+    
 }
+
+
+
+
+
+
+
+
